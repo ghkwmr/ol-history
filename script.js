@@ -1,8 +1,13 @@
 
+import createCanvas from "./createCanvas.js";
 
-//東京(35.6811,139.7672)中心の正距方位図法
+
+//東京中心の正距方位図法
+const lng = 139.7672;
+const lat = 35.6811;
+
 //https://proj.org/en/9.4/operations/projections/aeqd.html
-proj4.defs("aeqd", "+proj=aeqd +lat_0=35.6811 +lon_0=139.7672 +x_0=0 +y_0=0 +a=6378137 +b=6378137 +datum=WGS84 +units=m +no_defs");
+proj4.defs("aeqd", `+proj=aeqd +lat_0=${lat} +lon_0=${lng} +x_0=0 +y_0=0 +a=6378137 +b=6378137 +datum=WGS84 +units=m +no_defs`);
 ol.proj.proj4.register(proj4);
 
 const projection = new ol.proj.Projection({
@@ -10,8 +15,6 @@ const projection = new ol.proj.Projection({
 	extent: [-120e5, -120e5, 120e5, 120e5],
 });
 
-
-import createCanvas from "./createCanvas.js";
 
 const canvasFunction = function (extent, resolution, pixelRatio, size, projection) {
 
@@ -46,8 +49,9 @@ const map = new ol.Map({
 	],
 
 	view: new ol.View({
-		center: ol.proj.fromLonLat([139.7672,35.6811 + 0.15], projection),
-		zoom: 9,
+		// center: ol.proj.fromLonLat([lng,lat + 0.15], projection),
+		center: [0,0],
+		zoom: 16,
 		projection,
 	}),
 });
